@@ -33,7 +33,7 @@ export default function MyPayBills() {
     fetchMyBills();
   }, [user]);
 
-  if (!user) return <p>Please login to view your bills.</p>;
+  if (!user) return <p className="text-center mt-10">Please login to view your bills.</p>;
   if (loading) return <Spinner />;
 
   const totalAmount = myBills.reduce((sum, b) => sum + b.amount, 0);
@@ -67,54 +67,69 @@ export default function MyPayBills() {
 
   return (
     <div className="p-6 max-w-6xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">My Paid Bills</h1>
-      <p>Total Bills Paid: {myBills.length}</p>
-      <p>Total Amount: ৳ {totalAmount}</p>
+      <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">My Paid Bills</h1>
 
-      <table className="w-full border-collapse border">
-        <thead>
-          <tr>
-            <th className="border p-2">Username</th>
-            <th className="border p-2">Amount</th>
-            <th className="border p-2">Address</th>
-            <th className="border p-2">Phone</th>
-            <th className="border p-2">Date</th>
-            <th className="border p-2">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {myBills.map((bill) => (
-            <tr key={bill._id}>
-              <td className="border p-2">{bill.username}</td>
-              <td className="border p-2">৳ {bill.amount}</td>
-              <td className="border p-2">{bill.address}</td>
-              <td className="border p-2">{bill.phone}</td>
-              <td className="border p-2">{bill.date}</td>
-              <td className="border p-2 space-x-2">
-                <Button onClick={() => handleUpdate(bill)}>Update</Button>
-              </td>
+      <div className="flex flex-col sm:flex-row justify-between gap-4 mb-6">
+        <div className="bg-white shadow p-4 rounded-lg w-full sm:w-1/2 text-center">
+          <p className="text-gray-600">Total Bills Paid</p>
+          <p className="text-xl font-bold">{myBills.length}</p>
+        </div>
+        <div className="bg-white shadow p-4 rounded-lg w-full sm:w-1/2 text-center">
+          <p className="text-gray-600">Total Amount</p>
+          <p className="text-xl font-bold">৳ {totalAmount}</p>
+        </div>
+      </div>
+
+      <div className="overflow-x-auto bg-white shadow rounded-lg">
+        <table className="w-full table-auto border-collapse">
+          <thead className="bg-gray-100">
+            <tr>
+              <th className="border p-3 text-left">Username</th>
+              <th className="border p-3 text-left">Amount</th>
+              <th className="border p-3 text-left">Address</th>
+              <th className="border p-3 text-left">Phone</th>
+              <th className="border p-3 text-left">Date</th>
+              <th className="border p-3 text-left">Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {myBills.map((bill) => (
+              <tr key={bill._id} className="hover:bg-gray-50 transition">
+                <td className="border p-3">{bill.username}</td>
+                <td className="border p-3">৳ {bill.amount}</td>
+                <td className="border p-3">{bill.address}</td>
+                <td className="border p-3">{bill.phone}</td>
+                <td className="border p-3">{bill.date}</td>
+                <td className="border p-3">
+                  <Button onClick={() => handleUpdate(bill)} className="bg-blue-600 hover:bg-blue-700">
+                    Update
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       <Modal open={openModal} onClose={() => setOpenModal(false)}>
-        <h2 className="text-xl font-bold mb-3">Update Bill</h2>
+        <h2 className="text-xl font-bold mb-4">Update Bill</h2>
         <input
           type="text"
           placeholder="Address"
           value={address}
           onChange={(e) => setAddress(e.target.value)}
-          className="w-full border p-2 rounded mb-2"
+          className="w-full border p-3 rounded mb-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
         <input
           type="text"
           placeholder="Phone"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
-          className="w-full border p-2 rounded mb-2"
+          className="w-full border p-3 rounded mb-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
-        <Button onClick={submitUpdate} className="w-full">Submit</Button>
+        <Button onClick={submitUpdate} className="w-full bg-green-600 hover:bg-green-700">
+          Submit
+        </Button>
       </Modal>
     </div>
   );

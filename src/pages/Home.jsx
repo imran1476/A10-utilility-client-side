@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Spinner from "../components/common/Spinner";
 
 export default function Home() {
   const [bills, setBills] = useState([]);
@@ -9,7 +10,7 @@ export default function Home() {
   useEffect(() => {
     const fetchBills = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/bills?limit=6"); // backend URL ঠিক করো
+        const res = await fetch("http://localhost:5000/api/bills?limit=6"); // Backend URL ঠিক করো
         const data = await res.json();
 
         // যদি backend response array হয়
@@ -39,7 +40,7 @@ export default function Home() {
             style={{ backgroundImage: "url('https://i.ibb.co/QHqY1sS/utility1.jpg')" }}
           ></div>
           <div className="absolute inset-0 flex items-center justify-center bg-black/40">
-            <h1 className="text-white text-3xl md:text-5xl font-bold drop-shadow-lg">
+            <h1 className="text-white text-3xl md:text-5xl font-bold drop-shadow-lg text-center">
               Manage Your Utility Bills Easily
             </h1>
           </div>
@@ -64,7 +65,7 @@ export default function Home() {
           Utility Categories
         </h2>
 
-        <div className="grid md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {[
             { name: "Electricity", icon: "⚡" },
             { name: "Gas", icon: "🔥" },
@@ -89,31 +90,29 @@ export default function Home() {
         </h2>
 
         {loading ? (
-          <p className="text-center py-6">Loading...</p>
+          <div className="flex justify-center py-6"><Spinner /></div>
         ) : bills.length === 0 ? (
           <p className="text-center text-gray-600 py-6">No bills found</p>
         ) : (
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
             {bills.map((bill) => (
               <div
                 key={bill._id}
-                className="bg-gray-100 rounded-xl shadow hover:shadow-xl transition p-4"
+                className="bg-gray-100 rounded-xl shadow hover:shadow-xl transition p-4 flex flex-col"
               >
                 <img
-                  src={bill.image}
+                  src={bill.image || "/src/assets/sample-bill.jpg"}
                   alt={bill.title}
                   className="h-40 w-full object-cover rounded-lg mb-4"
                 />
-                <h3 className="text-xl font-bold text-gray-800">{bill.title}</h3>
-                <p className="text-gray-600">Category: {bill.category}</p>
-                <p className="text-gray-600">Location: {bill.location}</p>
-                <p className="text-gray-700 font-semibold mt-2">
-                  Amount: ৳{bill.amount}
-                </p>
+                <h3 className="text-xl font-bold text-gray-800 truncate">{bill.title}</h3>
+                <p className="text-gray-600 truncate">Category: {bill.category}</p>
+                <p className="text-gray-600 truncate">Location: {bill.location}</p>
+                <p className="text-gray-700 font-semibold mt-2">Amount: ৳{bill.amount}</p>
 
                 <Link
                   to={`/bills/${bill._id}`}
-                  className="block text-center mt-4 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition"
+                  className="block text-center mt-auto bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition"
                 >
                   See Details
                 </Link>
@@ -123,7 +122,7 @@ export default function Home() {
         )}
       </section>
 
-      {/* --------------------- EXTRA SECTIONS --------------------- */}
+      {/* --------------------- FEATURES SECTION --------------------- */}
       <section className="max-w-7xl mx-auto px-4 py-16">
         <div className="grid md:grid-cols-3 gap-8">
           {[
@@ -155,6 +154,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* --------------------- WHY CHOOSE US SECTION --------------------- */}
       <section className="max-w-7xl mx-auto px-4 py-16">
         <div className="flex flex-col md:flex-row items-center gap-10">
           <img

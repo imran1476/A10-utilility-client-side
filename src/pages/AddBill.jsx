@@ -39,11 +39,13 @@ export default function AddBill() {
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Add New Bill</h1>
+      <h1 className="text-3xl font-bold mb-6 text-gray-800">
+        Add New Utility Bill
+      </h1>
 
       <form
         onSubmit={handleSubmit}
-        className="grid grid-cols-1 gap-3 bg-white p-5 shadow rounded"
+        className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white p-6 shadow-xl rounded-2xl"
       >
         <input
           type="text"
@@ -51,17 +53,17 @@ export default function AddBill() {
           placeholder="Title"
           value={form.title}
           onChange={handleChange}
-          className="border p-2 rounded"
+          className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
           required
         />
 
         <input
           type="text"
           name="category"
-          placeholder="Category"
+          placeholder="Category (Electricity, Gas, Water, Internet)"
           value={form.category}
           onChange={handleChange}
-          className="border p-2 rounded"
+          className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
           required
         />
 
@@ -71,7 +73,7 @@ export default function AddBill() {
           placeholder="Email"
           value={form.email}
           onChange={handleChange}
-          className="border p-2 rounded"
+          className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
 
         <input
@@ -80,7 +82,7 @@ export default function AddBill() {
           placeholder="Location"
           value={form.location}
           onChange={handleChange}
-          className="border p-2 rounded"
+          className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
 
         <input
@@ -89,16 +91,16 @@ export default function AddBill() {
           placeholder="Image URL"
           value={form.image}
           onChange={handleChange}
-          className="border p-2 rounded"
+          className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 md:col-span-2"
         />
 
         <input
           type="number"
           name="amount"
-          placeholder="Amount"
+          placeholder="Amount (৳)"
           value={form.amount}
           onChange={handleChange}
-          className="border p-2 rounded"
+          className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
           required
         />
 
@@ -107,12 +109,13 @@ export default function AddBill() {
           placeholder="Description"
           value={form.description}
           onChange={handleChange}
-          className="border p-2 rounded"
+          className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 md:col-span-2"
+          rows="4"
         />
 
         <button
           type="submit"
-          className="bg-blue-600 text-white py-2 px-4 rounded"
+          className="md:col-span-2 bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition"
         >
           Add Bill
         </button>

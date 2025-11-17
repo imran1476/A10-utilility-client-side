@@ -23,7 +23,7 @@ export default function Login() {
     try {
       await login(email, password);
       toast.success("Login Successful!");
-      navigate(from, { replace: true }); // Redirect to intended page
+      navigate(from, { replace: true });
     } catch (err) {
       toast.error(err.message);
     }
@@ -40,22 +40,56 @@ export default function Login() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md w-96">
-        <h2 className="text-2xl font-bold mb-4">Login</h2>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-blue-200 to-blue-300">
+      <div className="bg-white rounded-2xl shadow-xl w-96 p-8 sm:p-10">
+        <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
+          Welcome Back
+        </h2>
 
-        <input type="email" placeholder="Email" value={email} onChange={(e)=>setEmail(e.target.value)} className="w-full border p-2 rounded mb-3"/>
-        <input type="password" placeholder="Password" value={password} onChange={(e)=>setPassword(e.target.value)} className="w-full border p-2 rounded mb-3"/>
-        
-        <Button type="submit" className="w-full mb-3">Login</Button>
-        <Button type="button" onClick={handleGoogleLogin} className="w-full bg-red-500 hover:bg-red-600 mb-3">
-          Login with Google
-        </Button>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
 
-        <p className="text-sm text-center">
-          Don't have an account? <span className="text-blue-600 cursor-pointer" onClick={()=>navigate("/register")}>Register</span>
+          <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700">
+            Login
+          </Button>
+
+          <Button
+            type="button"
+            onClick={handleGoogleLogin}
+            className="w-full bg-red-500 hover:bg-red-600 flex items-center justify-center gap-2"
+          >
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+              alt="Google"
+              className="w-5 h-5"
+            />
+            Login with Google
+          </Button>
+        </form>
+
+        <p className="text-center text-gray-600 mt-6">
+          Don't have an account?{" "}
+          <span
+            className="text-blue-600 cursor-pointer hover:underline"
+            onClick={() => navigate("/register")}
+          >
+            Register
+          </span>
         </p>
-      </form>
+      </div>
     </div>
   );
 }

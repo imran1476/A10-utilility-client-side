@@ -18,14 +18,15 @@ export default function BillDetails() {
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
 
+  // Check if user logged in
   useEffect(() => {
     if (!user) {
       toast.error("Please login first!");
       navigate("/login");
-      return;
     }
   }, [user, navigate]);
 
+  // Fetch bill details
   useEffect(() => {
     const fetchBill = async () => {
       try {
@@ -33,6 +34,7 @@ export default function BillDetails() {
         setBill(res.data);
       } catch (err) {
         console.error(err);
+        toast.error("Failed to load bill!");
       } finally {
         setLoading(false);
       }
@@ -41,7 +43,7 @@ export default function BillDetails() {
   }, [id]);
 
   if (loading) return <Spinner />;
-  if (!bill) return <p>Bill not found</p>;
+  if (!bill) return <p className="text-center text-red-500 mt-8">Bill not found</p>;
 
   const isCurrentMonth = new Date(bill.date).getMonth() === new Date().getMonth();
 
@@ -52,7 +54,7 @@ export default function BillDetails() {
     }
 
     const payload = {
-      billId: bill._id, // ✅ Correct field name
+      billId: bill._id,
       username: user.displayName || "Anonymous",
       email: user.email,
       amount: bill.amount,
@@ -62,11 +64,10 @@ export default function BillDetails() {
     };
 
     try {
-      const res = await api.post("/my-bills", payload);
-      console.log("PAY RESPONSE:", res.data);
+      await api.post("/my-bills", payload);
       toast.success("Bill Paid Successfully!");
       setOpenModal(false);
-      navigate("/my-pay-bills"); // redirect to paid bills
+      navigate("/my-pay-bills");
     } catch (err) {
       console.error("PAY ERROR:", err);
       toast.error("Payment failed!");
@@ -75,40 +76,55 @@ export default function BillDetails() {
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
-      <img src={bill.image} alt={bill.title} className="w-full h-64 object-cover rounded mb-4" />
-      <h1 className="text-2xl font-bold mb-2">{bill.title}</h1>
-      <p className="text-gray-600">{bill.category} | {bill.location}</p>
-      <p className="my-2">{bill.description}</p>
-      <p className="font-semibold">৳ {bill.amount}</p>
-      <p>Date: {bill.date}</p>
+      <div className="bg-white shadow-lg rounded-2xl overflow-hidden">
+        <img
+          src={bill.image}
+          alt={bill.title}
+          className="w-full h-64 md:h-80 object-cover"
+        />
+        <div className="p-6">
+          <h1 className="text-3xl font-bold text-gray-800 mb-2">{bill.title}</h1>
+          <p className="text-gray-500 mb-2">{bill.category} | {bill.location}</p>
+          <p className="text-gray-700 mb-3">{bill.description}</p>
+          <p className="text-xl font-semibold mb-2">Amount: ৳ {bill.amount}</p>
+          <p className="text-gray-400 mb-4">Date: {bill.date}</p>
 
-      <Button
-        className={`${!isCurrentMonth ? "bg-gray-400 cursor-not-allowed" : ""} mt-4`}
-        onClick={() => setOpenModal(true)}
-        disabled={!isCurrentMonth}
-      >
-        Pay Bill
-      </Button>
+          <Button
+            className={`mt-4 w-full ${!isCurrentMonth ? "bg-gray-400 cursor-not-allowed" : ""}`}
+            onClick={() => setOpenModal(true)}
+            disabled={!isCurrentMonth}
+          >
+            {isCurrentMonth ? "Pay Bill" : "Pay Bill (Only Current Month)"}
+          </Button>
+        </div>
+      </div>
 
+      {/* Payment Modal */}
       <Modal open={openModal} onClose={() => setOpenModal(false)}>
-        <h2 className="text-xl font-bold mb-3">Pay Bill</h2>
-        <p>Email: {user.email}</p>
-        <p>Bill Amount: ৳ {bill.amount}</p>
-        <input
-          type="text"
-          placeholder="Address"
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
-          className="w-full border p-2 rounded mb-2"
-        />
-        <input
-          type="text"
-          placeholder="Phone"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          className="w-full border p-2 rounded mb-2"
-        />
-        <Button onClick={handlePay} className="w-full">Submit Payment</Button>
+        <h2 className="text-2xl font-bold mb-4 text-gray-800">Pay Bill</h2>
+        <div className="space-y-3">
+          <p className="text-gray-600">Email: {user.email}</p>
+          <p className="text-gray-600">Bill Amount: ৳ {bill.amount}</p>
+
+          <input
+            type="text"
+            placeholder="Address"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+          <input
+            type="text"
+            placeholder="Phone"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+
+          <Button onClick={handlePay} className="w-full mt-2">
+            Submit Payment
+          </Button>
+        </div>
       </Modal>
     </div>
   );
