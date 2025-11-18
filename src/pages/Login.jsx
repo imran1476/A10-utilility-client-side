@@ -72,9 +72,9 @@ export default function Login() {
             className="w-full bg-red-500 hover:bg-red-600 flex items-center justify-center gap-2"
           >
             <img
-              src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+              src="https://i.ibb.co.com/PGFyJ08y/images-q-tbn-ANd9-Gc-QVZEZ6fa7b-Pw-CI4-HE5583rhd3qi-FNmf6ki-Pg-s.png"
               alt="Google"
-              className="w-5 h-5"
+              className="w-5 h-5 rounded-full"
             />
             Login with Google
           </Button>

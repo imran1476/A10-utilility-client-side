@@ -10,22 +10,15 @@ export default function Home() {
   useEffect(() => {
     const fetchBills = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/bills?limit=6"); // Backend URL ঠিক করো
+        const res = await fetch("http://localhost:5000/api/bills?limit=6");
         const data = await res.json();
-
-        // যদি backend response array হয়
-        setBills(data);
-
-        // যদি backend response object হয় { bills: [...] }
-        // setBills(data.bills);
-
+        setBills(data); // Assuming backend returns array
         setLoading(false);
       } catch (err) {
         console.error("Failed to fetch bills:", err);
         setLoading(false);
       }
     };
-
     fetchBills();
   }, []);
 
@@ -34,19 +27,19 @@ export default function Home() {
 
       {/* --------------------- HERO CAROUSEL --------------------- */}
       <section className="max-w-7xl mx-auto px-4 py-6">
+        <h1 className="text-gray-800 text-2xl md:text-4xl font-bold drop-shadow-lg text-center mb-10">
+          Manage Your Utility Bills Easily
+        </h1>
         <div className="relative w-full h-64 md:h-96 rounded-2xl overflow-hidden shadow-xl">
           <div
-            className="absolute inset-0 bg-cover bg-center animate-[slide_14s_infinite]"
-            style={{ backgroundImage: "url('https://i.ibb.co.com/bMvLGm2w/Gemini-Generated-Image-wargu9wargu9warg.png')" }}
+            className="absolute inset-0 w-full h-full bg-cover bg-center animate-[slide_14s_infinite]"
+            style={{
+              backgroundImage:
+                "url('https://i.ibb.co.com/bMvLGm2w/Gemini-Generated-Image-wargu9wargu9warg.png')"
+            }}
           ></div>
-          <div className="absolute inset-0 flex items-center justify-center bg-black/40">
-            <h1 className="text-white text-3xl md:text-5xl font-bold drop-shadow-lg text-center">
-              Manage Your Utility Bills Easily
-            </h1>
-          </div>
+          <div className="absolute inset-0 flex items-center justify-center bg-black/40"></div>
         </div>
-
-        {/* Carousel Animation */}
         <style>
           {`
             @keyframes slide {
@@ -64,7 +57,6 @@ export default function Home() {
         <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">
           Utility Categories
         </h2>
-
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {[
             { name: "Electricity", icon: "⚡" },
@@ -90,7 +82,9 @@ export default function Home() {
         </h2>
 
         {loading ? (
-          <div className="flex justify-center py-6"><Spinner /></div>
+          <div className="flex justify-center py-6">
+            <Spinner />
+          </div>
         ) : bills.length === 0 ? (
           <p className="text-center text-gray-600 py-6">No bills found</p>
         ) : (
@@ -98,24 +92,30 @@ export default function Home() {
             {bills.map((bill) => (
               <div
                 key={bill._id}
-                className="bg-gray-100 rounded-xl shadow hover:shadow-xl transition p-4 flex flex-col"
+                className="bg-gray-100 rounded-xl shadow hover:shadow-xl transition flex flex-col"
               >
-                <img
-                  src={bill.image || "/src/assets/sample-bill.jpg"}
-                  alt={bill.title}
-                  className="h-40 w-full object-cover rounded-lg mb-4"
-                />
-                <h3 className="text-xl font-bold text-gray-800 truncate">{bill.title}</h3>
-                <p className="text-gray-600 truncate">Category: {bill.category}</p>
-                <p className="text-gray-600 truncate">Location: {bill.location}</p>
-                <p className="text-gray-700 font-semibold mt-2">Amount: ৳{bill.amount}</p>
+                {/* Image */}
+                <div className="h-48 w-full overflow-hidden rounded-t-xl">
+                  <img
+                    src={bill.image || "/src/assets/sample-bill.jpg"}
+                    alt={bill.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                {/* Content */}
+                <div className="p-4 flex flex-col flex-grow">
+                  <h3 className="text-xl font-bold text-gray-800 truncate">{bill.title}</h3>
+                  <p className="text-gray-600 truncate">Category: {bill.category}</p>
+                  {bill.location && <p className="text-gray-600 truncate">Location: {bill.location}</p>}
+                  <p className="text-gray-700 font-semibold mt-2">Amount: ৳{bill.amount}</p>
 
-                <Link
-                  to={`/bills/${bill._id}`}
-                  className="block text-center mt-auto bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition"
-                >
-                  See Details
-                </Link>
+                  <Link
+                    to={`/bills/${bill._id}`}
+                    className="block text-center mt-auto bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition"
+                  >
+                    See Details
+                  </Link>
+                </div>
               </div>
             ))}
           </div>
@@ -157,11 +157,13 @@ export default function Home() {
       {/* --------------------- WHY CHOOSE US SECTION --------------------- */}
       <section className="max-w-7xl mx-auto px-4 py-16">
         <div className="flex flex-col md:flex-row items-center gap-10">
-          <img
-            src="https://i.ibb.co.com/DfX1Nr4x/Whats-App-Image-2025-11-18-at-2-51-29-PM.jpg"
-            alt="billing"
-            className="w-full md:w-1/2 rounded-2xl shadow-lg"
-          />
+          <div className="w-full md:w-1/2 h-64 md:h-96 overflow-hidden rounded-2xl shadow-lg">
+            <img
+              src="https://i.ibb.co.com/DfX1Nr4x/Whats-App-Image-2025-11-18-at-2-51-29-PM.jpg"
+              alt="billing"
+              className="w-full h-full object-cover"
+            />
+          </div>
           <div className="md:w-1/2">
             <h2 className="text-3xl font-bold text-gray-800 mb-5">
               Why Choose Our Utility Bill System?
