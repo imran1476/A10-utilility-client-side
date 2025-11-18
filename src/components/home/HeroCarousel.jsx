@@ -4,17 +4,17 @@ const slides = [
   {
     title: "Never Miss a Due Date",
     subtitle: "Get instant reminders for all your utility bills.",
-    image: "https://i.ibb.co/bMvLGm2/Gemini-Generated-Image-wargu9wargu9warg.png",
+    image: "https://i.ibb.co.com/bMvLGm2w/Gemini-Generated-Image-wargu9wargu9warg.png",
   },
   {
     title: "Quick and Secure Bill Payments",
     subtitle: "Pay electricity, water, gas, and internet bills anytime.",
-    image: "https://i.ibb.co/bMvLGm2/Gemini-Generated-Image-wargu9wargu9warg.png",
+    image: "https://i.ibb.co.com/bMvLGm2w/Gemini-Generated-Image-wargu9wargu9warg.png",
   },
   {
     title: "Go Paperless",
     subtitle: "Download and store your digital PDF receipts instantly.",
-    image: "https://i.ibb.co/bMvLGm2/Gemini-Generated-Image-wargu9wargu9warg.png",
+    image: "https://i.ibb.co.com/bMvLGm2w/Gemini-Generated-Image-wargu9wargu9warg.png",
   },
 ];
 

@@ -37,7 +37,7 @@ export default function Home() {
         <div className="relative w-full h-64 md:h-96 rounded-2xl overflow-hidden shadow-xl">
           <div
             className="absolute inset-0 bg-cover bg-center animate-[slide_14s_infinite]"
-            style={{ backgroundImage: "url('https://i.ibb.co/QHqY1sS/utility1.jpg')" }}
+            style={{ backgroundImage: "url('https://i.ibb.co.com/bMvLGm2w/Gemini-Generated-Image-wargu9wargu9warg.png')" }}
           ></div>
           <div className="absolute inset-0 flex items-center justify-center bg-black/40">
             <h1 className="text-white text-3xl md:text-5xl font-bold drop-shadow-lg text-center">
@@ -50,10 +50,10 @@ export default function Home() {
         <style>
           {`
             @keyframes slide {
-              0% { background-image: url('https://i.ibb.co/QHqY1sS/utility1.jpg'); }
-              33% { background-image: url('https://i.ibb.co/q7Yt5Tj/utility2.jpg'); }
-              66% { background-image: url('https://i.ibb.co/3pb7w7P/utility3.jpg'); }
-              100% { background-image: url('https://i.ibb.co/QHqY1sS/utility1.jpg'); }
+              0% { background-image: url('https://i.ibb.co.com/kV01YhHr/Gemini-Generated-Image-wuvtkbwuvtkbwuvt.png'); }
+              33% { background-image: url('https://i.ibb.co.com/QvFhNxn4/Gemini-Generated-Image-es6oe1es6oe1es6o.png'); }
+              66% { background-image: url('https://i.ibb.co.com/zHBw6Qws/Gemini-Generated-Image-ahloczahloczahlo.png'); }
+              100% { background-image: url('https://i.ibb.co.com/hR42Hg4q/Gemini-Generated-Image-23il7c23il7c23il.png'); }
             }
           `}
         </style>
@@ -158,7 +158,7 @@ export default function Home() {
       <section className="max-w-7xl mx-auto px-4 py-16">
         <div className="flex flex-col md:flex-row items-center gap-10">
           <img
-            src="https://i.ibb.co/bFJw6kQ/billing-system.jpg"
+            src="https://i.ibb.co.com/DfX1Nr4x/Whats-App-Image-2025-11-18-at-2-51-29-PM.jpg"
             alt="billing"
             className="w-full md:w-1/2 rounded-2xl shadow-lg"
           />
