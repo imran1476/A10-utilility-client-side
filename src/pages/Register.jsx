@@ -6,7 +6,10 @@ import Button from "../components/common/Button";
 
 export default function Register() {
   const navigate = useNavigate();
-  const { register } = useAuth();
+
+  // ❗ Correct names from AuthContext
+  const { register, loginWithGoogle } = useAuth();
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,13 +17,25 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!name || !email || !password) {
       toast.error("All fields required!");
       return;
     }
+
     try {
       await register(name, email, password, photo);
       toast.success("Registration Successful!");
+      navigate("/");
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      await loginWithGoogle(); // ✔ Correct function
+      toast.success("Google Login Successful!");
       navigate("/");
     } catch (err) {
       toast.error(err.message);
@@ -42,7 +57,7 @@ export default function Register() {
           placeholder="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full border border-gray-300 p-3 rounded-lg mb-4 focus:ring-2 focus:ring-blue-400 outline-none transition"
+          className="w-full border border-gray-300 p-3 rounded-lg mb-4"
         />
 
         <input
@@ -50,7 +65,7 @@ export default function Register() {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full border border-gray-300 p-3 rounded-lg mb-4 focus:ring-2 focus:ring-blue-400 outline-none transition"
+          className="w-full border border-gray-300 p-3 rounded-lg mb-4"
         />
 
         <input
@@ -58,7 +73,7 @@ export default function Register() {
           placeholder="Photo URL (optional)"
           value={photo}
           onChange={(e) => setPhoto(e.target.value)}
-          className="w-full border border-gray-300 p-3 rounded-lg mb-4 focus:ring-2 focus:ring-blue-400 outline-none transition"
+          className="w-full border border-gray-300 p-3 rounded-lg mb-4"
         />
 
         <input
@@ -66,20 +81,36 @@ export default function Register() {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full border border-gray-300 p-3 rounded-lg mb-6 focus:ring-2 focus:ring-blue-400 outline-none transition"
+          className="w-full border border-gray-300 p-3 rounded-lg mb-6"
         />
 
         <Button
           type="submit"
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg transition"
+          className="w-full bg-blue-600 text-white py-3 rounded-lg"
         >
           Register
         </Button>
 
+        {/* Google Login Button */}
+        <div className="mt-4">
+          <button
+            type="button"
+            onClick={handleGoogleLogin}
+            className="w-full border flex items-center justify-center gap-2 border-gray-300 py-3 rounded-lg hover:bg-gray-100 transition"
+          >
+            <img
+              src="https://i.ibb.co.com/PGFyJ08y/images-q-tbn-ANd9-Gc-QVZEZ6fa7b-Pw-CI4-HE5583rhd3qi-FNmf6ki-Pg-s.png"
+              className="w-5 h-5 rounded-full"
+              alt="google"
+            />
+            Continue with Google
+          </button>
+        </div>
+
         <p className="text-sm text-center mt-4 text-gray-600">
-          Already have an account?{" "}
+          Already have an account?
           <span
-            className="text-blue-600 cursor-pointer hover:underline"
+            className="text-blue-600 cursor-pointer hover:underline ml-1"
             onClick={() => navigate("/login")}
           >
             Login

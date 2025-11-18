@@ -8,10 +8,11 @@ export default function Login() {
   const navigate = useNavigate();
   const location = useLocation();
   const { login, loginWithGoogle } = useAuth();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // redirect to intended page after login or home
+  // Redirect after login
   const from = location.state?.from?.pathname || "/";
 
   const handleSubmit = async (e) => {
@@ -20,6 +21,7 @@ export default function Login() {
       toast.error("Email & Password required!");
       return;
     }
+
     try {
       await login(email, password);
       toast.success("Login Successful!");
@@ -42,34 +44,48 @@ export default function Login() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-blue-200 to-blue-300">
       <div className="bg-white rounded-2xl shadow-xl w-96 p-8 sm:p-10">
+        
         <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
           Welcome Back
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Email */}
           <input
             type="email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
           />
+
+          {/* Password */}
           <input
             type="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
           />
 
-          <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700">
+          {/* Forget Password (NO FUNCTION) */}
+          <p className="text-sm text-blue-600 cursor-pointer hover:underline text-right">
+            Forget Password?
+          </p>
+
+          {/* Login Button */}
+          <Button
+            type="submit"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+          >
             Login
           </Button>
 
-          <Button
+          {/* Google Login */}
+          <button
             type="button"
             onClick={handleGoogleLogin}
-            className="w-full bg-red-500 hover:bg-red-600 flex items-center justify-center gap-2"
+            className="w-full mt-2 bg-red-500 hover:bg-red-600 text-white py-3 rounded-lg flex items-center justify-center gap-2 transition"
           >
             <img
               src="https://i.ibb.co.com/PGFyJ08y/images-q-tbn-ANd9-Gc-QVZEZ6fa7b-Pw-CI4-HE5583rhd3qi-FNmf6ki-Pg-s.png"
@@ -77,9 +93,10 @@ export default function Login() {
               className="w-5 h-5 rounded-full"
             />
             Login with Google
-          </Button>
+          </button>
         </form>
 
+        {/* Register Redirect */}
         <p className="text-center text-gray-600 mt-6">
           Don't have an account?{" "}
           <span

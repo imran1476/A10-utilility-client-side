@@ -5,6 +5,8 @@ import Spinner from "../components/common/Spinner";
 import Button from "../components/common/Button";
 import Modal from "../components/common/Modal";
 import { toast } from "react-toastify";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 export default function MyPayBills() {
   const { user } = useContext(AuthContext);
@@ -65,6 +67,38 @@ export default function MyPayBills() {
     }
   };
 
+  const handleDelete = async (billId) => {
+    if (!window.confirm("Are you sure you want to delete this bill?")) return;
+    try {
+      await api.delete(`/my-bills/${billId}`);
+      toast.success("Bill deleted successfully!");
+      setMyBills((prev) => prev.filter((b) => b._id !== billId));
+    } catch (err) {
+      toast.error("Failed to delete bill!");
+      console.error(err);
+    }
+  };
+
+  const downloadReport = () => {
+    const doc = new jsPDF();
+    doc.text("My Paid Bills Report", 14, 20);
+    const tableColumn = ["Username", "Email", "Amount", "Address", "Phone", "Date"];
+    const tableRows = myBills.map((bill) => [
+      bill.username,
+      bill.email,
+      `৳ ${bill.amount}`,
+      bill.address,
+      bill.phone,
+      bill.date,
+    ]);
+    doc.autoTable({
+      startY: 30,
+      head: [tableColumn],
+      body: tableRows,
+    });
+    doc.save(`MyPaidBills_${new Date().toLocaleDateString()}.pdf`);
+  };
+
   return (
     <div className="p-6 max-w-6xl mx-auto">
       <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">My Paid Bills</h1>
@@ -78,6 +112,12 @@ export default function MyPayBills() {
           <p className="text-gray-600">Total Amount</p>
           <p className="text-xl font-bold">৳ {totalAmount}</p>
         </div>
+      </div>
+
+      <div className="flex justify-end mb-3">
+        <Button onClick={downloadReport} className="bg-indigo-600 hover:bg-indigo-700 text-white">
+          Download Report
+        </Button>
       </div>
 
       <div className="overflow-x-auto bg-white shadow rounded-lg">
@@ -100,9 +140,18 @@ export default function MyPayBills() {
                 <td className="border p-3">{bill.address}</td>
                 <td className="border p-3">{bill.phone}</td>
                 <td className="border p-3">{bill.date}</td>
-                <td className="border p-3">
-                  <Button onClick={() => handleUpdate(bill)} className="bg-blue-600 hover:bg-blue-700">
+                <td className="border p-3 flex gap-2">
+                  <Button
+                    onClick={() => handleUpdate(bill)}
+                    className="bg-blue-600 hover:bg-blue-700"
+                  >
                     Update
+                  </Button>
+                  <Button
+                    onClick={() => handleDelete(bill._id)}
+                    className="bg-red-600 hover:bg-red-700"
+                  >
+                    Delete
                   </Button>
                 </td>
               </tr>

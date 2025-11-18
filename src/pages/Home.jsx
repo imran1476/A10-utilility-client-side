@@ -10,7 +10,7 @@ export default function Home() {
   useEffect(() => {
     const fetchBills = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/bills?limit=6");
+        const res = await fetch("https://imran-utility.vercel.app/api/bills?limit=6");
         const data = await res.json();
         setBills(data); // Assuming backend returns array
         setLoading(false);
