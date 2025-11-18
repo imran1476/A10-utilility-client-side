@@ -2,16 +2,19 @@ import React, { useState, useEffect } from "react";
 
 const slides = [
   {
-    title: "Pay All Your Bills in One Place",
-    image: "https://i.ibb.co/QHqY1sS/utility1.jpg",
+    title: "Never Miss a Due Date",
+    subtitle: "Get instant reminders for all your utility bills.",
+    image: "https://i.ibb.co/bMvLGm2/Gemini-Generated-Image-wargu9wargu9warg.png",
   },
   {
-    title: "Track Your Payments Easily",
-    image: "https://i.ibb.co/q7Yt5Tj/utility2.jpg",
+    title: "Quick and Secure Bill Payments",
+    subtitle: "Pay electricity, water, gas, and internet bills anytime.",
+    image: "https://i.ibb.co/bMvLGm2/Gemini-Generated-Image-wargu9wargu9warg.png",
   },
   {
-    title: "Download PDF Reports Anytime",
-    image: "https://i.ibb.co/3pb7w7P/utility3.jpg",
+    title: "Go Paperless",
+    subtitle: "Download and store your digital PDF receipts instantly.",
+    image: "https://i.ibb.co/bMvLGm2/Gemini-Generated-Image-wargu9wargu9warg.png",
   },
 ];
 
@@ -21,7 +24,7 @@ export default function HeroCarousel() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % slides.length);
-    }, 5000); // 5s per slide
+    }, 5000);
     return () => clearInterval(interval);
   }, []);
 
@@ -29,7 +32,9 @@ export default function HeroCarousel() {
 
   const prevSlide = () =>
     setCurrent((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
-  const nextSlide = () => setCurrent((prev) => (prev + 1) % slides.length);
+
+  const nextSlide = () =>
+    setCurrent((prev) => (prev + 1) % slides.length);
 
   return (
     <div className="relative w-full h-64 md:h-96 rounded-2xl overflow-hidden shadow-xl">
@@ -41,24 +46,30 @@ export default function HeroCarousel() {
           } bg-cover bg-center`}
           style={{ backgroundImage: `url(${slide.image})` }}
         >
-          <div className="absolute inset-0 bg-black/40 flex items-center justify-center px-4">
-            <h1 className="text-white text-2xl md:text-5xl font-bold drop-shadow-lg text-center">
+          <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center px-4 text-center">
+            <h1 className="text-white text-2xl md:text-5xl font-extrabold drop-shadow-lg">
               {slide.title}
             </h1>
+
+            <p className="text-white text-sm md:text-xl mt-3 opacity-90">
+              {slide.subtitle}
+            </p>
           </div>
         </div>
       ))}
 
-      {/* Arrows */}
+      {/* Left Arrow */}
       <button
         onClick={prevSlide}
-        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/40 text-white p-2 rounded-full hover:bg-black/60 transition"
+        className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/40 text-white p-2 rounded-full hover:bg-black/60 transition"
       >
         &#10094;
       </button>
+
+      {/* Right Arrow */}
       <button
         onClick={nextSlide}
-        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/40 text-white p-2 rounded-full hover:bg-black/60 transition"
+        className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/40 text-white p-2 rounded-full hover:bg-black/60 transition"
       >
         &#10095;
       </button>

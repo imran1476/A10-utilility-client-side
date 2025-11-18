@@ -11,10 +11,16 @@ export default function Navbar() {
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
 
         {/* LOGO */}
-        <Link to="/" className="flex items-center gap-2">
-          <FaBolt className="text-yellow-300 text-3xl" />
-          <span className="font-extrabold text-2xl text-white">UtilityBills</span>
-        </Link>
+<Link to="/" className="flex items-center gap-2">
+  <img 
+    src="https://i.ibb.co.com/93VZnyFG/Gemini-Generated-Image-drz815drz815drz8.png"
+    alt="UtilityBills Logo " 
+    className="w-8 h-8 object-contain rounded-full"
+  />
+  <span className="font-extrabold text-2xl text-white">
+    Utility Bills
+  </span>
+</Link>
 
         {/* NAVIGATION */}
         <div className="flex items-center gap-4">
