@@ -198,3 +198,40 @@ Protect private routes with JWT or Firebase token verification.
 * Use `jsPDF` + `jspdf-autotable` to generate a PDF from the My Pay Bills table.
 * Provide a `Download Report` button on My Pay Bills page that exports only the currently logged-in user’s paid bills.
 
+---
+
+## Extra (Optional) Features & Challenges
+
+* Dark/Light theme toggle.
+* Add animations using Lottie / Framer Motion / react-awesome-reveal.
+* Implement Axios interceptors for global request handling.
+
+---
+
+## Testing & QA
+
+* Test route reloads locally with `serve -s build` (or Netlify preview) to confirm `_redirects` works.
+* Test Google login flow in production domain (add authorized domain in Firebase console).
+
+---
+
+## Submission Notes for Examiner
+
+Include the following in your submission message:
+
+* Client repo link and **at least 15** highlighted commit messages (short list of important commits).
+* Server repo link and **at least 8** highlighted commit messages.
+* Live website URL.
+* Short note describing how you seeded the bills and how to run the app.
+
+---
+
+## Author
+
+Your Name — `your-email@example.com`
+
+---
+
+## License
+
+MIT
